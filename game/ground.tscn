@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0hvfs1v8kx5d"]
+
+[ext_resource type="Texture2D" uid="uid://drle5ciio1nau" path="res://assets/background/groundHighway1920px.png" id="1_sh5x0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uiit1"]
+size = Vector2(2560, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8vul"]
+size = Vector2(2560, 16)
+
+[node name="Ground" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_sh5x0")
+centered = false
+
+[node name="groundCollision" type="CollisionShape2D" parent="."]
+position = Vector2(1280, 351.5)
+shape = SubResource("RectangleShape2D_uiit1")
+
+[node name="skyCollision" type="CollisionShape2D" parent="."]
+position = Vector2(1280, -8)
+shape = SubResource("RectangleShape2D_p8vul")

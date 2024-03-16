@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2mdvhm7g435"]
+
+[ext_resource type="PackedScene" uid="uid://bfdhqe5rhfgu1" path="res://ui/menu/mainMenu.tscn" id="1_835ei"]
+[ext_resource type="PackedScene" uid="uid://dctqsa8pcemml" path="res://resources/postProcessing/Vignette/vignette.tscn" id="1_es4kf"]
+[ext_resource type="PackedScene" uid="uid://dgm3mti06khhu" path="res://ui/debug/debugConsole.tscn" id="3_pwx5n"]
+
+[sub_resource type="GDScript" id="GDScript_ubpdx"]
+resource_name = "mainManager"
+script/source = "extends Node
+
+@export var worldManager : String
+
+#@onready var pauseMenu = $pauseMenu
+@onready var vignette = $Vignette
+@onready var debugConsole = $debugConsole
+
+var debugConsoleHidden = true
+var inMainMenu = true
+var gamePaused = false
+var gameWorld : Node2D
+
+
+func _ready():
+	print(\"Mainmanager ready\")
+#	pauseMenu.hide()
+	
+
+func _process(delta):
+	if Input.is_action_just_pressed(\"debug\"):
+		handleDebugConsole()
+#	if Input.is_action_just_pressed(\"esc\"):
+#		handlePause()
+
+
+func _on_main_menu_start_game():
+	print(\"game started\")
+	gameWorld = load(worldManager).instantiate()
+	add_child(gameWorld)
+	inMainMenu = !inMainMenu
+
+
+func handleDebugConsole():
+	if debugConsoleHidden:
+		debugConsole.show()
+		debugConsoleHidden = false
+	else:
+		debugConsole.hide()
+		debugConsoleHidden = true
+
+#func handlePause():
+#	if inMainMenu:
+#		return null
+#	elif !inMainMenu:
+#		pauseMenu.visible = !pauseMenu.visible
+#		if gamePaused:
+#			Engine.time_scale = 1
+#		else:
+#			Engine.time_scale = 0
+#		gamePaused = !gamePaused
+#		
+#		gamePaused = true
+#	
+#		Engine.time_scale = 1
+#		print()
+#	else:
+#		pauseMenu.hide()
+#		gamePaused = false
+#		Engine.time_scale = 0
+
+
+
+"
+
+[node name="mainManager" type="Node"]
+script = SubResource("GDScript_ubpdx")
+worldManager = "res://managers/worldManager.tscn"
+
+[node name="Vignette" parent="." instance=ExtResource("1_es4kf")]
+
+[node name="MainMenu" parent="." instance=ExtResource("1_835ei")]
+
+[node name="debugConsole" parent="." instance=ExtResource("3_pwx5n")]
+visible = false
+
+[connection signal="startGame" from="MainMenu" to="." method="_on_main_menu_start_game"]

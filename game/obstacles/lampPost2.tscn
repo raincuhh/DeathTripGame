@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://5cr6d5ytrtio"]
+
+[ext_resource type="Texture2D" uid="uid://cwf4f3wsn0i70" path="res://assets/obstacles/lampPost2.png" id="1_c4hju"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3j2lb"]
+size = Vector2(8, 98)
+
+[sub_resource type="Gradient" id="Gradient_fdmf4"]
+offsets = PackedFloat32Array(0.21, 0.69)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_v5n8v"]
+gradient = SubResource("Gradient_fdmf4")
+fill = 1
+fill_from = Vector2(0.47561, 0.512195)
+fill_to = Vector2(0, 0)
+
+[node name="LampPost2" type="Area2D"]
+z_index = 2
+scale = Vector2(1.25, 1.25)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_c4hju")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3j2lb")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(-1.90735e-06, -40.8)
+texture = SubResource("GradientTexture2D_v5n8v")

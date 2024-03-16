@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhs86gkhg0g27"]
+
+[ext_resource type="Script" path="res://game/drink.gd" id="1_1sho6"]
+[ext_resource type="Texture2D" uid="uid://bbf5r0mbpqhcn" path="res://assets/obstacles/beerDrink3.png" id="1_s5c50"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sg1dh"]
+radius = 7.0
+height = 24.0
+
+[node name="Beer3" type="Area2D"]
+script = ExtResource("1_1sho6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_s5c50")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_sg1dh")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

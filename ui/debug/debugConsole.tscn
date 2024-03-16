@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgm3mti06khhu"]
+
+[ext_resource type="Script" path="res://ui/debug/debugConsole.gd" id="1_eq0ks"]
+
+[node name="debugConsole" type="CanvasLayer"]
+script = ExtResource("1_eq0ks")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="margin5px" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/margin5px"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="fps" type="Label" parent="Control/margin5px/VBoxContainer"]
+layout_mode = 2
+text = "fps"
+
+[node name="speed" type="Label" parent="Control/margin5px/VBoxContainer"]
+layout_mode = 2
+text = "speed"

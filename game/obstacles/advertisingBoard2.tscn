@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://latsrwwrucox"]
+
+[ext_resource type="Texture2D" uid="uid://4n4a0fa3mnig" path="res://assets/obstacles/advertisingBoard2.png" id="1_hgep7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02ctw"]
+size = Vector2(53.2467, 56.3173)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nk1jc"]
+size = Vector2(16, 58.5)
+
+[sub_resource type="Gradient" id="Gradient_vrl6i"]
+offsets = PackedFloat32Array(0.21, 0.69)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rrdhg"]
+gradient = SubResource("Gradient_vrl6i")
+fill = 1
+fill_from = Vector2(0.47561, 0.512195)
+fill_to = Vector2(0, 0)
+
+[node name="AdvertisingBoard2" type="Area2D"]
+z_index = -1
+scale = Vector2(1.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hgep7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.999998, -65)
+rotation = 0.453786
+shape = SubResource("RectangleShape2D_02ctw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-29, -78)
+shape = SubResource("RectangleShape2D_nk1jc")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(27, -51)
+shape = SubResource("RectangleShape2D_nk1jc")
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(-5.33333, -87.3333)
+texture = SubResource("GradientTexture2D_rrdhg")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(-26.6667, -100)
+texture = SubResource("GradientTexture2D_rrdhg")

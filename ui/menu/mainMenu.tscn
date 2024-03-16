@@ -1,0 +1,244 @@
+[gd_scene load_steps=13 format=3 uid="uid://bfdhqe5rhfgu1"]
+
+[ext_resource type="Script" path="res://ui/menu/cameraMainMenu.gd" id="1_5earw"]
+[ext_resource type="Script" path="res://ui/menu/mainMenu.gd" id="1_wwq7s"]
+[ext_resource type="Texture2D" uid="uid://dmieekj0a7k6p" path="res://assets/background/mainMenuBgV2/00-gradient.png" id="2_6vcah"]
+[ext_resource type="Texture2D" uid="uid://qboacod1pvik" path="res://assets/background/mainMenuBgV2/01-stars.png" id="3_q2g5q"]
+[ext_resource type="Texture2D" uid="uid://dcgoqvf873v8u" path="res://assets/background/mainMenuBgV2/02-moon.png" id="4_rt4t1"]
+[ext_resource type="Texture2D" uid="uid://canvkxwahqu41" path="res://assets/background/mainMenuBgV2/03-bgBuildings.png" id="5_mu6m3"]
+[ext_resource type="Texture2D" uid="uid://csfq1k88sem84" path="res://assets/background/mainMenuBgV2/04-frontBuildings.png" id="6_2vy5f"]
+[ext_resource type="Texture2D" uid="uid://bw4hy4btg55hx" path="res://assets/background/mainMenuBgV2/05-highway.png" id="7_vly64"]
+[ext_resource type="Texture2D" uid="uid://bx1y3wa6gvr31" path="res://assets/sprites/playerCarSpriteBase_0002.png" id="8_8ume7"]
+[ext_resource type="Theme" uid="uid://y1uq7mq7btna" path="res://resources/themes/labelTheme.tres" id="10_khgch"]
+[ext_resource type="Theme" uid="uid://127tu6yifwoc" path="res://resources/themes/mainMenuButtonTheme.tres" id="11_4u1j6"]
+[ext_resource type="Script" path="res://ui/menu/versionControl.gd" id="12_f27bq"]
+
+[node name="mainMenu" type="CanvasLayer"]
+script = ExtResource("1_wwq7s")
+
+[node name="mainMenuBg" type="ParallaxBackground" parent="."]
+
+[node name="layer00-gradientBg" type="ParallaxLayer" parent="mainMenuBg"]
+motion_scale = Vector2(0, 0)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="mainMenuBg/layer00-gradientBg"]
+texture = ExtResource("2_6vcah")
+offset = Vector2(320, 180)
+metadata/_edit_lock_ = true
+
+[node name="layer01-stars" type="ParallaxLayer" parent="mainMenuBg"]
+motion_scale = Vector2(0.001, 0)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="mainMenuBg/layer01-stars"]
+texture = ExtResource("3_q2g5q")
+offset = Vector2(320, 180)
+metadata/_edit_lock_ = true
+
+[node name="layer02-moon" type="ParallaxLayer" parent="mainMenuBg"]
+motion_scale = Vector2(0, 0)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="mainMenuBg/layer02-moon"]
+texture = ExtResource("4_rt4t1")
+offset = Vector2(320, 180)
+metadata/_edit_lock_ = true
+
+[node name="layer03-bgBuildings" type="ParallaxLayer" parent="mainMenuBg"]
+motion_scale = Vector2(0.25, 0.25)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="mainMenuBg/layer03-bgBuildings"]
+texture = ExtResource("5_mu6m3")
+offset = Vector2(320, 180)
+metadata/_edit_lock_ = true
+
+[node name="layer04-frontBuildings" type="ParallaxLayer" parent="mainMenuBg"]
+motion_scale = Vector2(0.6, 0.6)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="mainMenuBg/layer04-frontBuildings"]
+texture = ExtResource("6_2vy5f")
+offset = Vector2(320, 180)
+metadata/_edit_lock_ = true
+
+[node name="layer05-highway" type="ParallaxLayer" parent="mainMenuBg"]
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="mainMenuBg/layer05-highway"]
+texture = ExtResource("7_vly64")
+offset = Vector2(320, 180)
+metadata/_edit_lock_ = true
+
+[node name="car" type="Sprite2D" parent="mainMenuBg/layer05-highway"]
+position = Vector2(120, 332)
+scale = Vector2(2, 2)
+texture = ExtResource("8_8ume7")
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+limit_left = 0
+limit_top = 0
+limit_right = 640
+limit_bottom = 360
+limit_smoothed = true
+editor_draw_limits = true
+script = ExtResource("1_5earw")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="margin5px" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="versionControlScreen" type="Control" parent="Control/margin5px"]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("12_f27bq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/margin5px/versionControlScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="version" type="Label" parent="Control/margin5px/versionControlScreen/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_khgch")
+theme_override_font_sizes/font_size = 8
+text = "V"
+
+[node name="playScreen" type="Control" parent="Control/margin5px"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="title" type="Control" parent="Control/margin5px/playScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Control/margin5px/playScreen/title"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="gameTitle" type="Label" parent="Control/margin5px/playScreen/title/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_khgch")
+theme_override_font_sizes/font_size = 32
+text = "\"Joy\"ride"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Control/margin5px/playScreen/title/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="play" type="Control" parent="Control/margin5px/playScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/margin5px/playScreen/play"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="start" type="Button" parent="Control/margin5px/playScreen/play/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("11_4u1j6")
+text = "
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/margin5px/playScreen/play/VBoxContainer/start"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_bottom = 59
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/margin5px/playScreen/play/VBoxContainer/start/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="Control/margin5px/playScreen/play/VBoxContainer/start/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Click Anywhere to Play!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="buttons" type="Control" parent="Control/margin5px/playScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/margin5px/playScreen/buttons"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="settings" type="Button" parent="Control/margin5px/playScreen/buttons/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("11_4u1j6")
+text = "Settings"
+
+[node name="settingsScreen" type="Control" parent="Control/margin5px"]
+layout_mode = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="Control/margin5px/playScreen/play/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Control/margin5px/playScreen/buttons/HBoxContainer/settings" to="." method="_on_settings_pressed"]

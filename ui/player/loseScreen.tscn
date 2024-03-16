@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtgum7odxavk7"]
+
+[ext_resource type="Script" path="res://ui/player/loseScreen.gd" id="1_gusv0"]
+[ext_resource type="Theme" uid="uid://y1uq7mq7btna" path="res://resources/themes/labelTheme.tres" id="1_j5eys"]
+[ext_resource type="Theme" uid="uid://127tu6yifwoc" path="res://resources/themes/mainMenuButtonTheme.tres" id="2_wrtue"]
+
+[node name="loseScreen" type="CanvasLayer"]
+script = ExtResource("1_gusv0")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_j5eys")
+text = "you lost..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 51
+alignment = 1
+
+[node name="score" type="HBoxContainer" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="scoreLabel" type="Label" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer/score"]
+layout_mode = 2
+theme = ExtResource("1_j5eys")
+text = "SC"
+
+[node name="score" type="Label" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer/score"]
+layout_mode = 2
+theme = ExtResource("1_j5eys")
+text = "00"
+
+[node name="highscore" type="HBoxContainer" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="highscoreLabel" type="Label" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer/highscore"]
+layout_mode = 2
+theme = ExtResource("2_wrtue")
+text = "HI"
+
+[node name="highscore" type="Label" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer/highscore"]
+layout_mode = 2
+theme = ExtResource("2_wrtue")
+text = "00"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="reset" type="Button" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_wrtue")
+text = "Restart?"
+
+[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/HBoxContainer2/reset" to="." method="_on_reset_pressed"]

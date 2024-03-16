@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://0wqa58e2suay"]
+
+[ext_resource type="Texture2D" uid="uid://bx1y3wa6gvr31" path="res://assets/sprites/playerCarSpriteBase_0002.png" id="1_w06n0"]
+
+[sub_resource type="GDScript" id="GDScript_4al4t"]
+resource_name = "player"
+script/source = "extends CharacterBody2D
+
+@onready var player = $\".\"
+
+const JUMP_VELOCITY = -400.0
+var GRAVITY = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+var GRAVITYSCALE : float = 1.0
+var GRAVITYFALLSCALE = 1.1
+
+func _physics_process(delta):
+	
+	gravity(delta)
+	
+	if Input.is_action_just_pressed(\"space\"):
+		velocity.y = JUMP_VELOCITY
+	
+	move_and_slide()
+	#var playerPosition = player.position
+	#print(playerPosition)
+
+func gravity(delta):
+	if not is_on_floor():
+		velocity.y += GRAVITY * GRAVITYSCALE * delta
+	
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qb3re"]
+size = Vector2(104, 33)
+
+[node name="player" type="CharacterBody2D"]
+script = SubResource("GDScript_4al4t")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1.5)
+scale = Vector2(3.24323, 3)
+texture = ExtResource("1_w06n0")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qb3re")
+debug_color = Color(1, 1, 1, 0.156863)
+metadata/_edit_lock_ = true

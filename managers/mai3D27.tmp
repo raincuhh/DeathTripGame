@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2mdvhm7g435"]
+
+[ext_resource type="PackedScene" uid="uid://bfdhqe5rhfgu1" path="res://ui/menu/mainMenu.tscn" id="1_835ei"]
+[ext_resource type="PackedScene" uid="uid://dctqsa8pcemml" path="res://resources/postProcessing/Vignette/vignette.tscn" id="1_es4kf"]
+
+[sub_resource type="GDScript" id="GDScript_ubpdx"]
+resource_name = "mainManager"
+script/source = "extends Node
+
+@export var worldManager : String
+
+
+@onready var vignette = $Vignette
+
+
+var gameWorld : Node2D
+
+
+func _ready():
+	print(\"Mainmanager ready\")
+	hideIngameElements()
+
+func _on_main_menu_start_game():
+	print(\"game started\")
+	gameWorld = load(worldManager).instantiate()
+	add_child(gameWorld)
+	showIngameElements()
+#	gameWorld.connect(\"endGame\", goMainMenu)
+
+func goMainMenu():
+	pass
+
+func hideIngameElements():
+	vignette.hide()
+#	for i in inGameElements:
+#		if i != null:
+#			print(\"varialbe: \", i)
+#		else:
+#			print(\"variables are null\")
+
+
+func showIngameElements():
+	vignette.show()
+
+
+"
+
+[node name="mainManager" type="Node"]
+script = SubResource("GDScript_ubpdx")
+worldManager = "res://managers/worldManager.tscn"
+
+[node name="Vignette" parent="." instance=ExtResource("1_es4kf")]
+
+[node name="MainMenu" parent="." instance=ExtResource("1_835ei")]
+
+[connection signal="startGame" from="MainMenu" to="." method="_on_main_menu_start_game"]

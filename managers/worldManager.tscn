@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://di7p352n5le5h"]
+
+[ext_resource type="Texture2D" uid="uid://6m76b75clbg4" path="res://assets/background/parallaxV2/00-gradient.png" id="1_p6fil"]
+[ext_resource type="Script" path="res://managers/worldManager.gd" id="1_p7thb"]
+[ext_resource type="Texture2D" uid="uid://bt8tpvix1lng0" path="res://assets/background/parallaxV2/01-stars.png" id="2_4vtxd"]
+[ext_resource type="Texture2D" uid="uid://c6ttnkkflhpq3" path="res://assets/background/parallaxV2/02-moon.png" id="3_cwpl6"]
+[ext_resource type="Texture2D" uid="uid://braf8is1b6smv" path="res://assets/background/parallaxV2/03-bgBuildings.png" id="4_1mstq"]
+[ext_resource type="Texture2D" uid="uid://br46qr6a1skrl" path="res://assets/background/parallaxV2/04-frontBuildings.png" id="5_bcxjl"]
+[ext_resource type="Texture2D" uid="uid://bejj1tb360726" path="res://assets/background/parallaxV2/05-highway.png" id="6_5moob"]
+[ext_resource type="PackedScene" uid="uid://0wqa58e2suay" path="res://resources/entities/player/player.tscn" id="8_kl367"]
+[ext_resource type="PackedScene" uid="uid://b0hvfs1v8kx5d" path="res://game/ground.tscn" id="8_uyvme"]
+[ext_resource type="PackedScene" uid="uid://drhl7cdk47d4u" path="res://ui/player/playerUI.tscn" id="11_gpuk1"]
+[ext_resource type="PackedScene" uid="uid://dtgum7odxavk7" path="res://ui/player/loseScreen.tscn" id="12_7evbo"]
+
+[node name="worldManager" type="Node2D"]
+script = ExtResource("1_p7thb")
+metadata/_edit_lock_ = true
+
+[node name="worldBackground" type="ParallaxBackground" parent="."]
+
+[node name="00-gradient" type="ParallaxLayer" parent="worldBackground"]
+motion_scale = Vector2(0, 0)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="worldBackground/00-gradient"]
+texture = ExtResource("1_p6fil")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="01-stars" type="ParallaxLayer" parent="worldBackground"]
+motion_scale = Vector2(0.001, 0)
+motion_mirroring = Vector2(640, 0)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="worldBackground/01-stars"]
+texture = ExtResource("2_4vtxd")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="02-moon" type="ParallaxLayer" parent="worldBackground"]
+motion_scale = Vector2(0, 0)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="worldBackground/02-moon"]
+texture = ExtResource("3_cwpl6")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="03-bgBuildings" type="ParallaxLayer" parent="worldBackground"]
+motion_scale = Vector2(0.25, 0.25)
+motion_mirroring = Vector2(640, 0)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="worldBackground/03-bgBuildings"]
+texture = ExtResource("4_1mstq")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="04-frontBuildings" type="ParallaxLayer" parent="worldBackground"]
+motion_scale = Vector2(0.65, 0.65)
+motion_mirroring = Vector2(640, 0)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="worldBackground/04-frontBuildings"]
+texture = ExtResource("5_bcxjl")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="05-highway" type="ParallaxLayer" parent="worldBackground"]
+visible = false
+motion_mirroring = Vector2(640, 0)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="worldBackground/05-highway"]
+texture = ExtResource("6_5moob")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Ground" parent="." instance=ExtResource("8_uyvme")]
+
+[node name="player" parent="." instance=ExtResource("8_kl367")]
+position = Vector2(55, 327.5)
+
+[node name="mainCamera" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+metadata/_edit_lock_ = true
+
+[node name="playerGameUi" parent="." instance=ExtResource("11_gpuk1")]
+
+[node name="loseScreen" parent="." instance=ExtResource("12_7evbo")]
