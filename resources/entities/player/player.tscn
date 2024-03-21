@@ -1,37 +1,127 @@
-[gd_scene load_steps=4 format=3 uid="uid://0wqa58e2suay"]
+[gd_scene load_steps=11 format=3 uid="uid://0wqa58e2suay"]
 
-[ext_resource type="Texture2D" uid="uid://bx1y3wa6gvr31" path="res://assets/sprites/playerCarSpriteBase_0002.png" id="1_w06n0"]
+[ext_resource type="Texture2D" uid="uid://bgprwjy4svuvp" path="res://assets/sprites/carSprite2ndFrame.png" id="1_v700e"]
+[ext_resource type="Texture2D" uid="uid://lsit0i10ty2c" path="res://assets/sprites/carSprite1ndFrame.png" id="2_46a8k"]
+[ext_resource type="Texture2D" uid="uid://dclqflxn7l5sc" path="res://assets/sprites/carSprite3ndFrameExplosion.png" id="3_1itmo"]
+[ext_resource type="Texture2D" uid="uid://dd6rouxpd10uw" path="res://assets/sprites/carSprite4ndFrameExplosion.png" id="4_gfio1"]
 
 [sub_resource type="GDScript" id="GDScript_4al4t"]
 resource_name = "player"
 script/source = "extends CharacterBody2D
 
 @onready var player = $\".\"
+@onready var animationPlayer = $AnimationPlayer
 
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -450.0
+var isJumping = false
+#var GRAVITYSCALE : float = 1.0
+#var GRAVITYFALLSCALE = 1.1
+
+@export_category(\"gravity\")
 var GRAVITY = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
-var GRAVITYSCALE : float = 1.0
-var GRAVITYFALLSCALE = 1.1
+@export var GRAVITYSCALE : float = 1.0
+@export var GRAVITYJUMPPEAKSCALE : float = 0.9
+@export var GRAVITYFALLSCALE : float = 1.15
+@export var EARLYRELEASEFACTOR : float = 1.0
+
+func _ready():
+	animationPlayer.play(\"DRIVING\")
+	
 
 func _physics_process(delta):
 	
-	gravity(delta)
+	#gravity(delta)
+	#playerInput()
+	#if Input.is_action_just_pressed(\"space\"):
+	#	velocity.y = JUMP_VELOCITY
+	handleGravity(delta)
 	
-	if Input.is_action_just_pressed(\"space\"):
-		velocity.y = JUMP_VELOCITY
 	
 	move_and_slide()
-	#var playerPosition = player.position
-	#print(playerPosition)
 
 func gravity(delta):
 	if not is_on_floor():
 		velocity.y += GRAVITY * GRAVITYSCALE * delta
-	
+
+func _input(event):
+	if global.canDrive:
+		if event.is_action_pressed(\"space\"):
+			isJumping = true
+			velocity.y = JUMP_VELOCITY
+		
+		if event.is_action_released(\"space\"):
+			isJumping = false
+
+func handleGravity(delta):
+	if velocity.y > 0 and not is_on_floor():
+		# Apply gravity when jumping
+		velocity.y += GRAVITY * GRAVITYSCALE * GRAVITYJUMPPEAKSCALE * delta
+	elif velocity.y <= 0 and not is_on_floor():
+		# Apply regular gravity when falling
+		velocity.y += GRAVITY * GRAVITYSCALE * delta
+
+	# Adjust gravity if the jump button is released early
+	if isJumping and velocity.y < 0:
+		velocity.y *= EARLYRELEASEFACTOR
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qb3re"]
-size = Vector2(104, 33)
+size = Vector2(104, 39)
+
+[sub_resource type="Animation" id="Animation_f86r0"]
+resource_name = "DRIVING"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("1_v700e"), ExtResource("2_46a8k")]
+}
+
+[sub_resource type="Animation" id="Animation_ovhw0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_v700e")]
+}
+
+[sub_resource type="Animation" id="Animation_i4ht4"]
+resource_name = "EXPLOSION"
+length = 0.22
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("3_1itmo"), ExtResource("4_gfio1")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8u117"]
+_data = {
+"DRIVING": SubResource("Animation_f86r0"),
+"EXPLOSION": SubResource("Animation_i4ht4"),
+"RESET": SubResource("Animation_ovhw0")
+}
 
 [node name="player" type="CharacterBody2D"]
 script = SubResource("GDScript_4al4t")
@@ -40,10 +130,16 @@ metadata/_edit_lock_ = true
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 1.5)
 scale = Vector2(3.24323, 3)
-texture = ExtResource("1_w06n0")
+texture = ExtResource("1_v700e")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_qb3re")
 debug_color = Color(1, 1, 1, 0.156863)
 metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8u117")
+}

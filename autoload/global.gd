@@ -7,7 +7,9 @@ var currentVersion = "1.0.3"
 var speed
 var maxSpeed
 
+var canDrive = true
 
-var score = 0
-var highScore = 0
+
+var globalScore
+var highScore : int
 var points = 0

@@ -54,9 +54,12 @@ const SPEEDAMPLIFIER = 8000
 
 var score : float = 5
 var highScore : float
+var drunknessLevel : int = 0
+const DRUNKNESSLEVELMAX : int = 6
+const DRUNKNESSLEVELMIN : int = 0
 
 var count : float
-var countIncrementInterval = 0.5
+var countIncrementInterval = 0.3
 var countTimeCounter = 0.0
 
 var screenSize : Vector2i
@@ -83,10 +86,14 @@ func newGame():
 	ground.position = Vector2i(0,0)
 	speed = 0.0
 	score = 0
+	count = 0
 	playerUi.updateScoreLabel(count)
+	drunknessLevel = 0
+	playerUi.updateDrunknessLevel(drunknessLevel)
 	
 	for obs in obstacles:
-		obs.queue_free()
+		if is_instance_valid(obs):
+			obs.queue_free()
 	obstacles.clear()
 	for drk in drinks:
 		if is_instance_valid(drk):
@@ -119,8 +126,6 @@ func _process(delta):
 		
 		#print(score)
 		updateGround()
-		
-		
 		
 		for obs in obstacles:
 			if obs.position.x < (camera.position.x - screenSize.x):
@@ -187,7 +192,7 @@ func removeObs(obs):
 
 func hitObs(body):
 	if body.name == "player":
-		print("collided")
+		#print("collided")
 		lose()
 
 func changeDifficulty():
@@ -239,28 +244,46 @@ func addDrinks(drk, x, y, drinkType):
 	add_child(drk)
 	drinks.append(drk)
 
-func removeDrk(drk):
-	drk.queue_free()
-	drinks.erase(drk)
-
 func hitDrink(body, drinkTypes):
 	if body.name == "player":
-		print("collided")
+		#print("collided")
 		if drinkTypes.has(beer1) || drinkTypes.has(beer2) || drinkTypes.has(beer3):
 			increaseDrunkness()
 		else:
 			decreaseDrunkness()
 
+func removeDrk(drk):
+	#print("Removing drink:", drk)
+	if drinks.has(drk):
+		drk.queue_free()
+		drinks.erase(drk)
+		#print("removedDrink:", drk)
+	else:
+		print("Drink not found in drinks array:", drk)
+
 func increaseDrunkness():
-	print("increased drunkness")
-	#yip yap yup increase bar by whatever
+	#print("drunkness+")
+	drunknessLevel += 1
+	limitDrunknessLevel(drunknessLevel)
+	playerUi.updateDrunknessLevel(drunknessLevel)
+	print(drunknessLevel)
 
 func decreaseDrunkness():
-	print("decreased drunkness")
-	#yip yap yup decrease bar by whatever
+	#print("drunkness-")
+	drunknessLevel -= 1
+	limitDrunknessLevel(drunknessLevel)
+	playerUi.updateDrunknessLevel(drunknessLevel)
+	#print(drunknessLevel)
+
+func limitDrunknessLevel(e):
+	if e > DRUNKNESSLEVELMAX:
+		drunknessLevel = DRUNKNESSLEVELMAX
+	if e < DRUNKNESSLEVELMIN:
+		drunknessLevel = DRUNKNESSLEVELMIN
 
 func lose():
 	loseScreen.show()
+	loseScreen.updateGlobalScoreLabel()
 	gameRunning = false
 
 func updateScore():
@@ -269,12 +292,10 @@ func updateScore():
 		return
 	playerUi.updateScoreLabel(count)
 
-
-func checkHighScore():
-	if not highScore:
-		print("highscore incorrectly referenced")
-		return
-	
-	if count > highScore:
-		highScore = count
-		loseScreen.get_node("highScore").text = str(highScore)
+#func checkHighScore():
+#	if not highScore:
+#		print("highscore incorrectly referenced")
+#		return
+#	if count > highScore:
+#		highScore = count
+#		loseScreen.get_node("highScore").text = str(highScore)

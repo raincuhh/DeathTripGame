@@ -47,28 +47,17 @@ layout_mode = 2
 [node name="scoreLabel" type="Label" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer/score"]
 layout_mode = 2
 theme = ExtResource("1_j5eys")
-text = "SC"
+text = "score"
 
 [node name="score" type="Label" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer/score"]
 layout_mode = 2
 theme = ExtResource("1_j5eys")
 text = "00"
 
-[node name="highscore" type="HBoxContainer" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="highscoreLabel" type="Label" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer/highscore"]
-layout_mode = 2
-theme = ExtResource("2_wrtue")
-text = "HI"
-
-[node name="highscore" type="Label" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer/highscore"]
-layout_mode = 2
-theme = ExtResource("2_wrtue")
-text = "00"
-
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_wrtue")
+theme_override_constants/separation = 25
 alignment = 1
 
 [node name="reset" type="Button" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer2"]
@@ -76,4 +65,9 @@ layout_mode = 2
 theme = ExtResource("2_wrtue")
 text = "Restart?"
 
+[node name="Exit" type="Button" parent="Control/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Exit?"
+
 [connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/HBoxContainer2/reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/HBoxContainer2/Exit" to="." method="_on_exit_pressed"]

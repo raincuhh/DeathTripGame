@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://6b1wgqf64of4"]
+[gd_scene load_steps=6 format=3 uid="uid://6b1wgqf64of4"]
 
 [ext_resource type="Texture2D" uid="uid://bfrg8tciphbiw" path="res://assets/obstacles/advertisingBoard1.png" id="1_5p0ce"]
-[ext_resource type="Script" path="res://game/obstacles/advertisingBoard1.gd" id="1_mc3nc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0un3e"]
 size = Vector2(53.2467, 56.3173)
@@ -22,7 +21,6 @@ fill_to = Vector2(0, 0)
 [node name="AdvertisingBoard1" type="Area2D"]
 z_index = -1
 scale = Vector2(1.5, 1.5)
-script = ExtResource("1_mc3nc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_5p0ce")
@@ -47,5 +45,3 @@ texture = SubResource("GradientTexture2D_ohs8n")
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 position = Vector2(-27.3333, -100)
 texture = SubResource("GradientTexture2D_ohs8n")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2mdvhm7g435"]
+[gd_scene load_steps=6 format=3 uid="uid://d2mdvhm7g435"]
 
 [ext_resource type="PackedScene" uid="uid://bfdhqe5rhfgu1" path="res://ui/menu/mainMenu.tscn" id="1_835ei"]
 [ext_resource type="PackedScene" uid="uid://dctqsa8pcemml" path="res://resources/postProcessing/Vignette/vignette.tscn" id="1_es4kf"]
 [ext_resource type="PackedScene" uid="uid://dgm3mti06khhu" path="res://ui/debug/debugConsole.tscn" id="3_pwx5n"]
+[ext_resource type="PackedScene" uid="uid://dabrifbjy3fl" path="res://resources/postProcessing/monitorFilter/monitorShader.tscn" id="4_o87d2"]
 
 [sub_resource type="GDScript" id="GDScript_ubpdx"]
 resource_name = "mainManager"
@@ -13,6 +14,7 @@ script/source = "extends Node
 #@onready var pauseMenu = $pauseMenu
 @onready var vignette = $Vignette
 @onready var debugConsole = $debugConsole
+@onready var instantiatedGame = $instantiatedGame
 
 var debugConsoleHidden = true
 var inMainMenu = true
@@ -35,7 +37,7 @@ func _process(delta):
 func _on_main_menu_start_game():
 	print(\"game started\")
 	gameWorld = load(worldManager).instantiate()
-	add_child(gameWorld)
+	instantiatedGame.add_child(gameWorld)
 	inMainMenu = !inMainMenu
 
 
@@ -81,5 +83,10 @@ worldManager = "res://managers/worldManager.tscn"
 
 [node name="debugConsole" parent="." instance=ExtResource("3_pwx5n")]
 visible = false
+
+[node name="instantiatedGame" type="Node" parent="."]
+
+[node name="monitorShader" parent="." instance=ExtResource("4_o87d2")]
+layer = 128
 
 [connection signal="startGame" from="MainMenu" to="." method="_on_main_menu_start_game"]
