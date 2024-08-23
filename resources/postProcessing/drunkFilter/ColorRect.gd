@@ -9,4 +9,3 @@ func _ready():
 	shader_material.set_shader_parameter("screen_size", screen_size)
 	material = shader_material
 	print(screen_size)
-

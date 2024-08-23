@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bfdhqe5rhfgu1"]
+[gd_scene load_steps=14 format=3 uid="uid://bfdhqe5rhfgu1"]
 
 [ext_resource type="Script" path="res://ui/menu/cameraMainMenu.gd" id="1_5earw"]
 [ext_resource type="Script" path="res://ui/menu/mainMenu.gd" id="1_wwq7s"]
@@ -12,6 +12,7 @@
 [ext_resource type="Theme" uid="uid://y1uq7mq7btna" path="res://resources/themes/labelTheme.tres" id="10_khgch"]
 [ext_resource type="Theme" uid="uid://127tu6yifwoc" path="res://resources/themes/mainMenuButtonTheme.tres" id="11_4u1j6"]
 [ext_resource type="Script" path="res://ui/menu/versionControl.gd" id="12_f27bq"]
+[ext_resource type="Texture2D" uid="uid://c6ahexlvma36u" path="res://assets/deathTripLogoWhite.svg" id="13_wtl5e"]
 
 [node name="mainMenu" type="CanvasLayer"]
 script = ExtResource("1_wwq7s")
@@ -281,6 +282,12 @@ grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("11_4u1j6")
 text = "back"
+
+[node name="deathTripLogo" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(525, 32.5)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("13_wtl5e")
 
 [connection signal="pressed" from="Control/margin5px/playScreen/play/VBoxContainer/start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Control/margin5px/playScreen/buttons/HBoxContainer/settings" to="." method="_on_settings_pressed"]

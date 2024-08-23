@@ -16,5 +16,3 @@ then you can open it.
 the github repository https://github.com/raincuhh/DeathTripGame
 
 Made by Filip Ryan for the deathTrip campaign, in collaboration with Inderdeep Singh, Robin Nguyen and Henrik Stokkenes.
-
-
